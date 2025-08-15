@@ -1,0 +1,162 @@
+[gd_scene load_steps=8 format=3 uid="uid://yqp0wusrxp63"]
+
+[ext_resource type="Script" uid="uid://c5fwe1hkcsvvq" path="res://settings.gd" id="1_3ykye"]
+[ext_resource type="FontFile" uid="uid://ddchymcsw70o1" path="res://addons/kenneyUI/Font/Kenney Future Narrow.ttf" id="1_nkug2"]
+[ext_resource type="Script" uid="uid://rngndmt4v3m0" path="res://title_screen.gd" id="2_3ykye"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gc0em"]
+bg_color = Color(0, 0, 0, 0.352941)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 16
+expand_margin_left = 32.0
+expand_margin_top = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
+
+[sub_resource type="GDScript" id="GDScript_3ykye"]
+script/source = "extends TextEdit
+@onready var settings = get_node(\"/root/Settings\")
+
+func _gui_input(event):
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
+			settings.max_fps = int(self.text)
+			accept_event()
+			self.release_focus()
+"
+
+[sub_resource type="GDScript" id="GDScript_cj1lu"]
+script/source = "extends OptionButton
+@onready var settings = get_node(\"/root/Settings\")
+
+func _on_item_selected(index: int) -> void:
+	settings.graphics_quality = self.selected
+"
+
+[sub_resource type="GDScript" id="GDScript_gc0em"]
+script/source = "extends Button
+@onready var settings = get_node(\"/root/Settings\")
+@onready var fps_input = %TextEditFPS
+
+func _on_pressed() -> void:
+	settings.max_fps = int(fps_input.text)
+	settings.apply_settings()
+	settings.save_settings()
+"
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ykye")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 90
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 90
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_nkug2")
+theme_override_font_sizes/normal_font_size = 64
+text = "   Settings"
+fit_content = true
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gc0em")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+split_offset = 500
+dragging_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+script = ExtResource("2_3ykye")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Max FPS"
+
+[node name="TextEditFPS" type="TextEdit" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 48
+placeholder_text = "unlimited"
+context_menu_enabled = false
+emoji_menu_enabled = false
+autowrap_mode = 2
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+caret_blink = true
+script = SubResource("GDScript_3ykye")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Graphics Quality"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 32
+selected = 1
+item_count = 3
+popup/item_0/text = "Low"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "High"
+popup/item_2/id = 2
+script = SubResource("GDScript_cj1lu")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 48
+text = "  Return  "
+
+[node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 48
+text = "  Apply  "
+script = SubResource("GDScript_gc0em")
+
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer3/OptionButton" to="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer3/OptionButton" method="_on_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer4/ReturnButton" to="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer" method="_on_return_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer4/ApplyButton" to="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/HBoxContainer4/ApplyButton" method="_on_pressed"]

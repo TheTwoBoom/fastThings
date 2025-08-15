@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://2y5n7d3orqo8"]
+
+[ext_resource type="FontFile" uid="uid://ddchymcsw70o1" path="res://addons/kenneyUI/Font/Kenney Future Narrow.ttf" id="1_c1t8d"]
+[ext_resource type="Script" uid="uid://rngndmt4v3m0" path="res://title_screen.gd" id="2_g4wvt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gc0em"]
+bg_color = Color(0, 0, 0, 0.352941)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 16
+expand_margin_left = 32.0
+expand_margin_top = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 90
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 90
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_c1t8d")
+theme_override_font_sizes/normal_font_size = 64
+text = "   Credits"
+fit_content = true
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gc0em")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+split_offset = 500
+dragging_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+script = ExtResource("2_g4wvt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+text = "Game Design and Development: TheTwoBoom
+Game Assets (3D): KayKit
+Game Assets (2D & UI): Kenney
+Game Assets (Icons): KayKit, Kenney, OpenAI"
+fit_content = true
+
+[node name="ReturnButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 48
+text = "  Return  "
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer/ReturnButton" to="MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HSplitContainer/VBoxContainer" method="_on_return_button_pressed"]

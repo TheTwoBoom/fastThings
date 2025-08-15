@@ -1,0 +1,16 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hintergrund transparent lassen -->
+  <rect width="128" height="128" fill="none"/>
+
+  <!-- Außenkante / Rand -->
+  <polygon points="64,14 88,22 104,38 112,62 104,86 88,102 64,110 40,102 24,86 16,62 24,38 40,22"
+           fill="#D4A72C" stroke="#9A6E1C" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Innere Fläche -->
+  <polygon points="64,26 84,32 96,44 102,62 96,80 84,92 64,98 44,92 32,80 26,62 32,44 44,32"
+           fill="#E6C84E" stroke="#9A6E1C" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Mittlerer Balken -->
+  <rect x="56" y="40" width="16" height="40" rx="3" ry="3"
+        fill="#D4A72C" stroke="#9A6E1C" stroke-width="3"/>
+</svg>

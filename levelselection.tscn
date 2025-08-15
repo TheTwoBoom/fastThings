@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdarwe4t86nvx"]
+
+[ext_resource type="Script" uid="uid://c1yj8jc28g7mj" path="res://level_grid.gd" id="1_js3ie"]
+[ext_resource type="PackedScene" uid="uid://di5mdkrbj68hg" path="res://ui/LevelCard.tscn" id="2_4v0y6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srwxs"]
+bg_color = Color(0, 0, 0, 0.603922)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 32.0
+expand_margin_top = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
+
+[node name="Levelselection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(1680, 850)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_srwxs")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/CenterContainer"]
+layout_mode = 2
+columns = 4
+script = ExtResource("1_js3ie")
+level_card_scene = ExtResource("2_4v0y6")
